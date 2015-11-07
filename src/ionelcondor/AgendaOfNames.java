@@ -4,15 +4,14 @@ package ionelcondor;
  * Created by condor on 07/11/15.
  */
 
-import java.util.Scanner;
-
+import com.sun.org.apache.xpath.internal.SourceTree;
 
 import java.util.Scanner;
 
 public class AgendaOfNames {
 
-    String[] nameAgenda = new String[50];
-
+    private String[] nameAgenda = new String[50];
+    private int index=0;
 
     public static void main(String[] args) {
         System.out.println("AgendaTa versiunea 2.0");
@@ -95,16 +94,63 @@ public class AgendaOfNames {
 
     private void createItem() {
 
+        if (index < nameAgenda.length) {
+            String val = readName();
+            nameAgenda[index] = val;
+            index++;
+        }
+
+        for (int i = 0; i < nameAgenda.length; i++) {
+            if (nameAgenda[i] == null) {
+                String val = readName();
+                nameAgenda[i] = val;
+                System.out.println("Am introdus numele intr-un slot null");
+                break;
+
+            }
+
+        }
+
     }
 
 
     private void updateItem() {
-        //search and if found do an update
 
+        //search and if found do an update
+        boolean isFound=false;
+        String oldName = readName();
+
+        for(int i=0; i<nameAgenda.length; i++ ) {
+            if (nameAgenda[i]!=null){
+                if(nameAgenda[i].equals(oldName)){
+                    System.out.println("Introdu numele");
+                    String newName = readName();
+                    nameAgenda[i] = newName;
+                    isFound=true;
+                    System.out.println("Am schimbat");
+                }
+            }
+        }
+        if(!isFound)
+            System.out.println("Numele nu a fost gasit");
     }
 
 
     private void deleteItem() {
+        boolean isFound=false;
+        String oldName = readName();
+
+        for(int i=0; i<nameAgenda.length; i++ ) {
+            if (nameAgenda[i]!=null){
+                if(nameAgenda[i].equals(oldName)){
+                    nameAgenda[i]=null;
+                    System.out.println("Nu mai exista");
+
+                }
+            }
+        }
+        if(!isFound)
+            System.out.println("Numele nu a fost gasit");
 
     }
 
@@ -118,6 +164,20 @@ public class AgendaOfNames {
     /* returns the index where the name was found or -1 if the name is not in the agenda */
     private void searchAgendaAndDisplay() {
 
+        boolean isFound=false;
+        String oldName = readName();
+
+        for(int i=0; i<nameAgenda.length; i++ ) {
+            if (nameAgenda[i]!=null){
+                if(nameAgenda[i].equals(oldName)){
+
+
+                }
+            }
+        }
+        if(!isFound)
+            System.out.println("Numele nu a fost gasit");
+
     }
 
 
@@ -125,10 +185,10 @@ public class AgendaOfNames {
         System.out.println("aici as lista agenda");
         int counter = 0;
         for (int i = 0; i < nameAgenda.length; i++) {
-            if (nameAgenda[i] != null) {
+           // if (nameAgenda[i] != null) {
                 System.out.println(nameAgenda[i]);
                 counter++;
-            }
+            //}
         }
         if (counter == 0)
             System.out.println("Agenda este goala");
